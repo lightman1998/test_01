@@ -1,29 +1,26 @@
 #include <iostream>
 using namespace std;
 
-struct Node
-{
+struct Node {
     Node* next;
     int data;
 };
 
 template <class T>
-class LinkedList{
+class Linked_List {
+private:
+    Node * head;
+    Node * tail;
 public:
-    LinkedList():head(0), tail(0){};
-    ~LinkedList();
-
+    Linked_List():head(0), tail(0){};
     void push_back(T val);
     void push_front(T val);
     void reverse();
     void display() const;
-private:
-    Node * head;
-    Node * tail;
+    ~Linked_List();
 };
 template <class T>
-void LinkedList<T>::push_front(T val)
-{
+void Linked_List<T>::push_front(T val) {
     Node * newNode = new Node;
 
     newNode->data = val;
@@ -35,8 +32,7 @@ void LinkedList<T>::push_front(T val)
         tail = head;
 }
 template <class T>
-void LinkedList<T>::push_back(T val)
-{
+void Linked_List<T>::push_back(T val) {
     Node * newNode = new Node;
 
     newNode->data = val;
@@ -52,8 +48,7 @@ void LinkedList<T>::push_back(T val)
     tail = newNode;
 }
 template <class T>
-LinkedList<T>::~LinkedList()
-{
+Linked_List<T>::~Linked_List() {
     Node * tmp;
     while(head)
     {
@@ -63,61 +58,49 @@ LinkedList<T>::~LinkedList()
     }
 }
 template <class T>
-void LinkedList<T>::display() const
-{
-    Node * current = head;
+void Linked_List<T>::display() const {
+    Node * curr = head;
 
-    while(current)
-    {
-        cout<<current->data<<' ';
-        current = current->next;
+    while(curr) {
+        cout<<curr->data<<' ';
+        curr = curr->next;
     }
 }
 template <class T>
-void LinkedList<T>::reverse()
-{
+void Linked_List<T>::reverse() {
     if (head == 0)
         return;
 
     tail = head;
 
-    Node * current = head->next;
+    Node * curr = head->next;
     tail->next = 0;
     Node * right;
 
-    while(current)
-    {
-        right = current->next;
-
-        current->next = head;
-        head = current;
-        current = right;
+    while(curr) {
+        right = curr->next;
+        curr->next = head;
+        head = curr;
+        curr = right;
     }
 
     tail->next = 0;
 }
 
-int main()
-{
-    LinkedList<int> intList;
-
-    intList.push_front(3);
-    intList.push_front(2);
-    intList.push_front(1);
-
-    intList.push_back(4);
-    intList.push_back(5);
-    intList.push_back(6);
-
+int main() {
+    Linked_List<int> intList;
+    intList.push_front(30);
+    intList.push_front(20);
+    intList.push_front(10);
+    intList.push_back(40);
+    intList.push_back(50);
+    intList.push_back(60);
     cout << "Normal: ";
     intList.display();
-
     intList.reverse();
-
     cout << "\nReversed: ";
     intList.display();
-
     cout << endl;
-    //system("pause");
+
     return 0;
 }
